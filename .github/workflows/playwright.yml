@@ -23,8 +23,13 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
   
     - name: Run Playwright tests
+     - name: Run Playwright tests
       env:
         PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+     
       run: npx playwright test --config=playwright.service.config.js --workers=4
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
